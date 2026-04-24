@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container mt-4">
+
+    <h2 class="mb-3">Received Requests</h2>
+
+    {% for req in received %}
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    {{ req.sender }} → {{ req.skill_requested.name }}
+                </h5>
+
+                <p>
+                    Status:
+                    {% if req.status == 'pending' %}
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    {% elif req.status == 'accepted' %}
+                        <span class="badge bg-success">Accepted</span>
+                    {% else %}
+                        <span class="badge bg-danger">Rejected</span>
+                    {% endif %}
+                </p>
+
+                {% if req.status == 'pending' %}
+                    <a class="btn btn-sm btn-success"
+                       href="{% url 'accept_request' req.id %}">
+                        Accept
+                    </a>
+
+                    <a class="btn btn-sm btn-danger"
+                       href="{% url 'reject_request' req.id %}">
+                        Reject
+                    </a>
+                {% endif %}
+
+                {% if req.status == 'accepted' %}
+                    <a class="btn btn-sm btn-primary"
+                       href="{% url 'chat_room' req.id %}">
+                        Open Chat
+                    </a>
+
+                    <a class="btn btn-sm btn-outline-success"
+                       href="{% url 'add_review' req.id %}">
+                        Leave Review
+                    </a>
+                {% endif %}
+
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">No received requests.</p>
+    {% endfor %}
+
+
+    <hr class="my-4">
+
+
+    <h2 class="mb-3">Sent Requests</h2>
+
+    {% for req in sent %}
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    To {{ req.receiver }}
+                </h5>
+
+                <p>
+                    Status:
+                    {% if req.status == 'pending' %}
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    {% elif req.status == 'accepted' %}
+                        <span class="badge bg-success">Accepted</span>
+                    {% else %}
+                        <span class="badge bg-danger">Rejected</span>
+                    {% endif %}
+                </p>
+
+                {% if req.status == 'accepted' %}
+                    <a class="btn btn-sm btn-primary"
+                       href="{% url 'chat_room' req.id %}">
+                        Open Chat
+                    </a>
+
+                    <a class="btn btn-sm btn-outline-success"
+                       href="{% url 'add_review' req.id %}">
+                        Leave Review
+                    </a>
+                {% endif %}
+
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">No sent requests.</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

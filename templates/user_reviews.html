@@ -1,0 +1,11 @@
+<h2>User Reviews</h2>
+
+<ul>
+{% for review in reviews %}
+    <li>
+        {{ review.reviewer.username }} rated {{ review.rating }}/5
+        <br>
+        {{ review.comment }}
+    </li>
+{% endfor %}
+</ul>

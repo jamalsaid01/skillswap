@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Chat Room</h2>
+
+<p>
+    Exchange between:
+    {{ exchange.sender.username }} and {{ exchange.receiver.username }}
+</p>
+
+<hr>
+
+<!-- MESSAGES -->
+<div class="card p-3 mb-3" style="height:300px; overflow-y:scroll;">
+    {% for msg in messages %}
+        <p>
+            <b>{{ msg.sender.username }}:</b> {{ msg.text }}
+            <small class="text-muted">{{ msg.created_at }}</small>
+        </p>
+    {% endfor %}
+</div>
+
+<!-- SEND MESSAGE -->
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="text" class="form-control" placeholder="Type message...">
+    <button class="btn btn-primary mt-2">Send</button>
+</form>
+
+{% endblock %}
