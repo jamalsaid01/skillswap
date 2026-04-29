@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>All Skills</h2>
+
+<form method="GET" class="mb-3">
+    <input type="text" name="q" placeholder="Search skills..." class="form-control">
+</form>
+
+<a class="btn btn-primary mb-3" href="{% url 'create_skill' %}">+ Add Skill</a>
+
+<div class="row">
+{% for skill in skills %}
+    <div class="col-md-4">
+        <div class="card p-3 mb-3 shadow-sm">
+            <h5>{{ skill.name }}</h5>
+            <p>{{ skill.description }}</p>
+            <span class="badge bg-info">{{ skill.skill_type }}</span>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}

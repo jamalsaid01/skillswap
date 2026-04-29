@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card p-3 text-center bg-light">
+            <h5>Users</h5>
+            <h3>{{ total_users }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card p-3 text-center bg-light">
+            <h5>Skills</h5>
+            <h3>{{ total_skills }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card p-3 text-center bg-light">
+            <h5>Requests</h5>
+            <h3>{{ total_exchanges }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card p-3 text-center bg-light">
+            <h5>Accepted</h5>
+            <h3>{{ accepted_exchanges }}</h3>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<h3>Top Users</h3>
+<ul class="list-group">
+{% for user in top_users %}
+    <li class="list-group-item">
+        {{ user.username }} - ⭐ {{ user.avg_rating|default:"No rating" }}
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}
